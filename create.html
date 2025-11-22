@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar Layout</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+    }
+
+    #sidebar {
+      width: 70px;
+      background-color: #1e1f22;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between; 
+      padding: 20px 0;
+    }
+
+    #sidebar #topNav {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    #sidebar #bottomNav {
+      margin-bottom: 10px;
+    }
+
+    #sidebar a, #bottomNav a {
+      color: white;
+      font-size: 22px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    #sidebar a:hover, #bottomNav a:hover {
+      color: #00bfff;
+      transform: scale(1.2);
+    }
+
+    .main {
+      flex-grow: 1;
+      background-color: #fff;
+      border-left: 4px solid black;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+  <div id="topNav">
+    <a href="#" id="home"><i class="fa-solid fa-house"></i></a>
+    <a href="#" id="create"><i class="fa-solid fa-plus"></i></a>
+  </div>
+  <div id="bottomNav">
+    <a href="#" id="profile"><i class="fa-solid fa-user"></i></a>
+  </div>
+</div>
+
+  <div class="main">
+    <h1>Create Page</h1>
+
+    <p>Vnesi vprašanje in odgovor(format: vprašanje; odgovor)</p>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" aria-describedby="button-addon2" id="inputField">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="proccessInput()">Dodaj</button>
+    </div>
+
+    <div id="overview"></div>
+
+  </div>
+</body>
+
+<script>
+    var vprasanja = [];
+    const inputField = document.getElementById("inputField");
+    const overview = document.getElementById("overview"); 
+    var counter = 1;
+
+    inputField.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        proccessInput();
+      }
+    });
+
+    function proccessInput() {
+      let input = inputField.value;
+      let parts = input.split(";");
+      if (parts.length === 2) {
+        let question = parts[0].trim();
+        let answer = parts[1].trim();
+        vprasanja.push({question: question, answer: answer});
+        inputField.value = "";
+
+        const entryParagraph = document.createElement("p");
+        entryParagraph.textContent = `Vprašanje(${counter}): ${question} | Odgovor: ${answer}`;
+        overview.appendChild(entryParagraph);
+        counter++;
+
+      } else {
+        alert("Please enter the input in the correct format: question; answer");
+      }
+    
+    }
+
+    document.getElementById('home').addEventListener('click', (e) => {
+    e.preventDefault();
+    window.api.sendNav('home');
+    });
+
+    document.getElementById('create').addEventListener('click', (e) => {
+    e.preventDefault();
+    window.api.sendNav('create');
+    });
+
+    document.getElementById('profile').addEventListener('click', (e) => {
+    e.preventDefault();
+    window.api.sendNav('profile');
+    });
+
+</script>
+
+
+</html>

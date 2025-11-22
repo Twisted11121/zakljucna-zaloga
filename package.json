@@ -1,0 +1,19 @@
+{
+  "name": "nerd",
+  "version": "1.0.0",
+  "description": "A app for learning",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "electron": "^38.2.0"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.7"
+  }
+}
