@@ -58,6 +58,34 @@
       border-left: 4px solid black;
       padding: 20px;
     }
+
+    .sticky-button {
+            position: fixed;
+            
+            bottom: 20px;   
+            right: 20px;    
+        
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 5px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+
+            text-decoration: none;
+
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .sticky-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
   </style>
 </head>
 <body>
@@ -74,6 +102,10 @@
   <div class="main">
     <h1>Create Page</h1>
 
+    <p style="margin-bottom: 5px;">Vnesi naslov:</p>
+    <input type="text" class="form-control"  id="inputTitle" style="margin-bottom: 20px;" onfocusout="getTitle()">
+
+
     <p>Vnesi vprašanje in odgovor(format: vprašanje; odgovor)</p>
     <div class="input-group mb-3">
       <input type="text" class="form-control" aria-describedby="button-addon2" id="inputField">
@@ -81,8 +113,9 @@
     </div>
 
     <div id="overview"></div>
-
+    
   </div>
+  <a onclick="" class="sticky-button">Oddaj</a>
 </body>
 
 <script>
@@ -90,6 +123,7 @@
     const inputField = document.getElementById("inputField");
     const overview = document.getElementById("overview"); 
     var counter = 1;
+    var title;
 
     inputField.addEventListener("keydown", function(event) {
       if (event.key === "Enter") {
@@ -115,6 +149,11 @@
         alert("Please enter the input in the correct format: question; answer");
       }
     
+    }
+
+    function getTitle(){
+      title = document.getElementById("inputTitle").value;
+      console.log(title)
     }
 
     document.getElementById('home').addEventListener('click', (e) => {

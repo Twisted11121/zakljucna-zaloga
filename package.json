@@ -2,6 +2,14 @@
   "name": "nerd",
   "version": "1.0.0",
   "description": "A app for learning",
+  "homepage": "https://github.com/Twisted11121/zakljucna-zaloga#readme",
+  "bugs": {
+    "url": "https://github.com/Twisted11121/zakljucna-zaloga/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Twisted11121/zakljucna-zaloga.git"
+  },
   "license": "ISC",
   "author": "",
   "type": "commonjs",
@@ -10,10 +18,10 @@
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "electron": "^38.2.0"
-  },
   "dependencies": {
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "electron": "^38.7.1"
   }
 }

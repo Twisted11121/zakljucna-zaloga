@@ -5,61 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sidebar Layout</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      display: flex;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-      background-color: #fff;
-    }
-
-    #sidebar {
-    width: 70px;
-    background-color: #1e1f22;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between; 
-    padding: 20px 0;
-    }
-
-    #sidebar #topNav {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    }
-
-    #sidebar #bottomNav {
-    margin-bottom: 10px;
-    }
-
-    #sidebar a, #bottomNav a {
-      color: white;
-      font-size: 22px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    #sidebar a:hover, #bottomNav a:hover {
-      color: #00bfff;
-      transform: scale(1.2);
-    }
-
-    .main {
-      flex-grow: 1;
-      background-color: #fff;
-      border-left: 4px solid black;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-  </style>
+  <link rel="stylesheet" href="style/index.css">
 </head>
 <body>
   <div id="sidebar">
@@ -73,9 +19,9 @@
 </div>
 
   <div class="main">
-    <div id="searchBar">
-      <input type="text" id="searchInput" placeholder="Search...">
-      <button id="searchButton">Search</button>
+      <div id="searchBar">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button id="searchButton">Search</button>
     </div>
     <div id="showAll">
         <div class="nerdCard">
