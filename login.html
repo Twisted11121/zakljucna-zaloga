@@ -63,7 +63,7 @@
     form.addEventListener('submit', function(event) {
         event.preventDefault();
         const data = {username: form.username.value, password: form.password.value};
-        window.api.sendData(data);
+        window.api.sendLoginData(data);
     });
 
     window.api.onSaveComplete((result) => {

@@ -103,7 +103,10 @@
     <h1>Create Page</h1>
 
     <p style="margin-bottom: 5px;">Vnesi naslov:</p>
-    <input type="text" class="form-control"  id="inputTitle" style="margin-bottom: 20px;" onfocusout="getTitle()">
+    <input type="text" class="form-control"  id="inputTitle" style="margin-bottom: 20px;">
+
+    <p style="margin-bottom: 5px;">Vnesi opis:</p>
+    <input type="text" class="form-control"  id="inputDescription" style="margin-bottom: 20px;">
 
 
     <p>Vnesi vprašanje in odgovor(format: vprašanje; odgovor)</p>
@@ -124,6 +127,7 @@
     const overview = document.getElementById("overview"); 
     var counter = 1;
     var title;
+    var description;
 
     inputField.addEventListener("keydown", function(event) {
       if (event.key === "Enter") {
@@ -151,10 +155,13 @@
     
     }
 
-    function getTitle(){
+    // send data to save
+    function saveData(){
       title = document.getElementById("inputTitle").value;
-      console.log(title)
+      description = document.getElementById("inputDescription").value;
+      
     }
+
 
     document.getElementById('home').addEventListener('click', (e) => {
     e.preventDefault();

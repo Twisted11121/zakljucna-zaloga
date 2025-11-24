@@ -21,7 +21,7 @@ const db = new sqlite3.Database(path.join(__dirname, 'app.db'), (err) => {
       creator TEXT,
       name TEXT,
       description TEXT,
-      file TEXT
+      content TEXT
     );`
 
   db.exec(sql, (e) => {
@@ -98,9 +98,10 @@ console.error('Failed to load', file, err);
 });
 }
 
+//Load index
 ipcMain.on('home-clicked', () => safeLoad('index.html'));
 
-
+// Load index and send username
 ipcMain.on('profile-clicked', () => {
   safeLoad('profile.html').then(() => {
     // send username
@@ -108,5 +109,10 @@ ipcMain.on('profile-clicked', () => {
   });
 });
 
-
+// Load create page
 ipcMain.on('create-clicked', () => safeLoad('create.html'));
+
+//Recive create page data
+ipcMain.on("create-data", (event, data) => {
+  // Logic
+})
