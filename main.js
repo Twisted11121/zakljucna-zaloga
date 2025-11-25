@@ -1,38 +1,11 @@
 const { app, BrowserWindow, ipcMain, screen } = require('electron')
-
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
-
-// sqlite database
-const db = new sqlite3.Database(path.join(__dirname, 'app.db'), (err) => {
-  if (err) {
-    console.error('Error opening database', err)
-    return
-  }
-
-  const sql = `
-    CREATE TABLE IF NOT EXISTS Login (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      Username TEXT CHECK(length(Username) <= 16),
-      Password TEXT CHECK(length(Password) <= 32)
-    );
-    CREATE TABLE IF NOT EXISTS Content (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      creator TEXT,
-      name TEXT,
-      description TEXT,
-      content TEXT
-    );`
-
-  db.exec(sql, (e) => {
-    if (e) console.error('Error creating tables', e)
-  })
-})
+const { initializeDatabase, getUser } = require('./database');
 
 
 
 let mainWindow;
 let currentUser = null;
+const db = initializeDatabase();
 
 // Create main window
 app.whenReady().then(() => {
@@ -52,33 +25,8 @@ app.whenReady().then(() => {
 
 // Handle login data from preload
 ipcMain.on('login-data', (event, data) => {
-  db.get('SELECT Username, Password FROM Login WHERE Username = ?', [data.username], (err, row) => {
-    if (err) {
-      console.error('DB error', err)
-      event.reply('save-complete', { success: false, error: 'Database error' })
-      return
-    }
-
-    // user not found -> insert
-    if (!row) {
-      db.run('INSERT INTO Login (Username, Password) VALUES (?, ?)', [data.username, data.password], function(runErr) {
-        if (runErr) {
-          console.error('Insert error', runErr)
-          event.reply('save-complete', { success: false, error: 'Insert failed' })
-          return
-        }
-        loadIndexAndSend(data.username)
-      })
-    } 
-    // user exists -> check password
-    else {
-      if (row.Password === data.password) {
-        loadIndexAndSend(data.username)
-      } else {
-        event.reply('save-complete', { success: false, error: 'Invalid password' })
-      }
-    }
-  })
+  getUser(db, event, data.username, data.password)
+  loadIndexAndSend(data.username)
 });
 
 // Load index and send success message
