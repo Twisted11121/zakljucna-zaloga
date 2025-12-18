@@ -87,11 +87,27 @@ function insertContent(db, event, creator, name, description, content) {
   );
 }
 
+
+function queryUserContent(db,user, callback){
+  db.all(
+    'SELECT name, description, content FROM Content WHERE creator = ?',
+    [user],
+    (err, rows) => {
+      if (err) {
+        console.error('Error querying user content', err);
+        return;
+      }
+      callback({ data: rows });
+    }
+  );
+}
+
 module.exports = {
   initializeDatabase,
   handleDbError,
   insertUser,
   getUser,
   insertContent,
-  insertUser
+  insertUser,
+  queryUserContent
 };

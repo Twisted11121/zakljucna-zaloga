@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain, screen } = require('electron')
-const { initializeDatabase, getUser, insertContent } = require('./database');
+const { initializeDatabase, getUser, insertContent, queryUserContent } = require('./database');
 
 
 
@@ -52,8 +52,9 @@ ipcMain.on('home-clicked', () => safeLoad('index.html'));
 // Load profile page and send username
 ipcMain.on('profile-clicked', () => {
   safeLoad('profile.html').then(() => {
-    // send username
-    mainWindow.webContents.send('profile-name', currentUser);
+    queryUserContent(db, currentUser, (data) => {
+      mainWindow.webContents.send('profile-data', currentUser, data.data);
+    });
   });
 });
 

@@ -6,10 +6,10 @@ contextBridge.exposeInMainWorld('api', {
   onSaveComplete: (callback) => ipcRenderer.on('save-complete', (event, result) => callback(result)),
   sendNav: (page) => ipcRenderer.send(`${page}-clicked`, true),
 
-  onProfileName: (callback) =>
-  ipcRenderer.on('profile-name', (event, username) => {
-    callback(username);
-  }),
+  onProfileData: (callback) =>
+    ipcRenderer.on('profile-data', (event, username, data) => {
+      callback(username, data);
+    }),
   sendCreateData: (data) => ipcRenderer.send('create-data', data)
 
 });
